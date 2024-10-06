@@ -6,7 +6,7 @@ function Dashboard(){
     return(
         
         <div>
-            text here
+            Dashboard Page
         </div>
     );
 }
