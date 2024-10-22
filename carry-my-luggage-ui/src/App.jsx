@@ -9,8 +9,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../components/ui/dropdown-menu";
-import { Button } from "../components/ui/button"
+} from "./components/ui/dropdown-menu";
+import { Button } from "./components/ui/button"
 
 
 function App() {
@@ -21,16 +21,16 @@ function App() {
 
       <div style={{position:"fixed", left:"1%", top:"2%"}}>
         <DropdownMenu>
-          <DropdownMenuTrigger style={{fontSize:"120%" }}>Navigation Menu</DropdownMenuTrigger>
-          <DropdownMenuContent style={{fontSize:"105%" }}>
-              <DropdownMenuItem>
-                <Button>
-                  <Link style={{color:"black"}} to="/">Home</Link>
+          <DropdownMenuTrigger style={{fontSize:"120%", color:"white"}} className="bg-indigo-500">Navigation Menu</DropdownMenuTrigger>
+          <DropdownMenuContent style={{fontSize:"105%" }}  className="bg-indigo-300">
+              <DropdownMenuItem  className="bg-indigo-300">
+                <Button variant="secondary"  className="bg-indigo-500">
+                  <Link style={{color:"white"}} to="/">Home</Link>
                 </Button>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Button>
-                  <Link style={{color:"black"}}to="/Dashboard">Dashboard</Link>
+              <DropdownMenuItem  className="bg-indigo-300">
+                <Button variant="secondary"  className="bg-indigo-500">
+                  <Link style={{color:"white"}}to="/Dashboard">Dashboard</Link>
                 </Button>
               </DropdownMenuItem>
           </DropdownMenuContent>
