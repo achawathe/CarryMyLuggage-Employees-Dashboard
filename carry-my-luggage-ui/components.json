@@ -6,7 +6,7 @@
   "tailwind": {
     "config": "tailwind.config.js",
     "css": "src/index.css",
-    "baseColor": "sky-200",
+    "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
   },
