@@ -1,11 +1,42 @@
+import mongoose from 'mongoose';
+
+
 const express = require('express');
 const app = express();
 
-const userRouter = require('./routes/users');
+// Create Booking
 
-app.use('/users', userRouter);
+app.post('/api/v1/booking', (req, res) => {
+    res.send('Booking created');
+    console.log('Booking created');
+}
+);
+// Get Booking
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-    }
+app.get('/api/v1/booking', (req, res) => {
+    res.send('Booking retrieved');
+    console.log('Booking retrieved');
+}
+);
+
+// Update Booking
+app.put('/api/v1/booking', (req, res) => {
+    res.send('Booking updated');
+    console.log('Booking updated');
+}
+);
+
+// Delete Booking
+app.delete('/api/v1/booking', (req, res) => {
+    res.send('Booking deleted');
+    console.log('Booking deleted');
+}
+);
+
+//Get Luggage Cart Data
+
+app.get('/api/v1/cart', (req, res) => {
+    res.send('Cart data retrieved');
+    console.log('Cart data retrieved');
+} 
 );
