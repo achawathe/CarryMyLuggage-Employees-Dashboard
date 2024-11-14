@@ -1,14 +1,26 @@
 import express from 'express';
 const app = express();
 
-// create a new route for locations
+// create a new router
 
-app.get('/api/v1/locations', (req, res) => {
-    res.json([
-        { name: 'Terminal 1', location: 'Ottawa' },
-        { name: 'Terminal 2', location: 'Toronto' },
-        { name: 'Terminal 3', location: 'Montreal' },
-    ]);
+const router = express.Router();
+
+// add the router to the app
+app.use('/api/v1/locations', router);
+// define the routes
+
+app.get('Ottawa', (req, res) => {
+    res.send('Ottawa');
 });
+
+app.get('Toronto', (req, res) => {
+    res.send('Toronto');
+}
+);
+
+app.get('Vancouver', (req, res) => {
+    res.send('Vancouver');
+}
+);
 
 export default app;
