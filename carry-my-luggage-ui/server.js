@@ -1,109 +1,99 @@
 import mongoose from 'mongoose';
+import express from 'express';
 
+const app = express();
+app.use(express.json());
+app.use(express.static('public'));
 
 // Connect to the database
-mongoose.connect('mongodb://localhost:27017/booking', { useNewUrlParser: true }.then (() => {
-    const app = express();
-    app.use(express.json());
-    app.use(express.static('public'));
-
+mongoose.connect('mongodb://localhost:27017/booking', { useNewUrlParser: true })
+  .then(() => {
     app.listen(3000, () => {
-        console.log('Server started');
-    }
-    );
-}).catch((error) => {
-    console.log('Error connecting to database');
-}
-));
+      console.log('Server started');
+    });
+  })
+  .catch((error) => {
+    console.log('Error connecting to database', error);
+  });
 
 
-//define our database db
-const db = mongoose.connection;
-
-// Once connected to database, log a success message
-mongoose.connection.once('open', () => {
-    console.log('Connected to database');
-});
 
 // Define a schema
 const Schema = mongoose.Schema;
 const bookingSchema = new Schema({
-    cartNum: Number,
-    airport: Date,
-    battery: Number,
-    status: String,
-    location: String,
-    timeRem: Number,
+  cartNum: Number,
+  airport: String, // Changed to String
+  battery: Number,
+  status: String,
+  location: String,
+  timeRem: Number,
 });
 
 // Compile the model
 const Booking = mongoose.model('Booking', bookingSchema);
 
-// Create a new booking
-
-app.post('/api/v1/booking', (req, res) => {
+// Routes
+app.post('/api/v1/booking', async (req, res) => {
+  try {
     const booking = new Booking({
-        cartNum: 3,
-        airport: 'YOW',
-        battery: 0,  // this will be fetched from the cart
-        status: 'Available', // this will be updated by the cart
-        location: 'Terminal 1', // this will fetched from the cart
-        timeRem: 10,
+      cartNum: req.body.cartNum || 3,
+      airport: req.body.airport || 'YOW',
+      battery: req.body.battery || 0,
+      status: req.body.status || 'Available',
+      location: req.body.location || 'Terminal 1',
+      timeRem: req.body.timeRem || 10,
     });
 
-    db.collection('booking').insertOne(booking);
-
+    await booking.save();
     res.send('Booking created');
     console.log('Booking created');
-}
-);
-
-// Get Booking
-app.get('/api/v1/booking', (req, res) => {
-    db.collection('booking').find({cartNum: req.cartNum}).toArray(function (err, result) {
-        if (err) throw err;
-        console.log(result);
-    });
-
-    res.send('Booking retrieved');
-    console.log('Booking retrieved');
-}
-);
-
-
-// Update Booking
-
-app.put('/api/v1/booking', (req, res) => {
-
-    db.collection('booking').updateOne({cartNum: req.cartNum}, {
-        $set: {
-            status: 'Unavailable',
-            timeRem: 0,
-        }
-    });
-
-    res.send('Booking updated');
-    console.log('Booking updated');
-}
-);
-
-// Delete Booking
-
-app.delete('/api/v1/booking', (req, res) => {
-    db.collection('booking').deleteOne({cartNum: req.cartNum});
-
-    res.send('Booking deleted');
-    console.log('Booking deleted');
+  } catch (error) {
+    res.status(500).send('Error creating booking');
+  }
 });
 
-//Get Luggage Cart Data
-app.get('/api/v1/cart', (req, res) => {
-    db.collection('cart').find({}).toArray(function (err, result) {
-        if (err) throw err;
-        console.log(result);
-    });
+app.get('/api/v1/booking', async (req, res) => {
+  try {
+    const bookings = await Booking.find({ cartNum: req.query.cartNum });
+    res.json(bookings);
+    console.log('Booking retrieved');
+  } catch (error) {
+    res.status(500).send('Error retrieving booking');
+  }
+});
 
-    res.send('Cart data retrieved');
+// Update Booking
+app.put('/api/v1/booking', async (req, res) => {
+  try {
+    await Booking.updateOne(
+      { cartNum: req.body.cartNum },
+      { $set: { status: 'Unavailable', timeRem: 0 } }
+    );
+    res.send('Booking updated');
+    console.log('Booking updated');
+  } catch (error) {
+    res.status(500).send('Error updating booking');
+  }
+});
+
+// Delete Booking
+app.delete('/api/v1/booking', async (req, res) => {
+  try {
+    await Booking.deleteOne({ cartNum: req.body.cartNum });
+    res.send('Booking deleted');
+    console.log('Booking deleted');
+  } catch (error) {
+    res.status(500).send('Error deleting booking');
+  }
+});
+
+// Get Luggage Cart Data
+app.get('/api/v1/cart', async (req, res) => {
+  try {
+    const carts = await mongoose.connection.db.collection('cart').find({}).toArray();
+    res.json(carts);
     console.log('Cart data retrieved');
-} 
-);
+  } catch (error) {
+    res.status(500).send('Error retrieving cart data');
+  }
+});
