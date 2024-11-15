@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import tailwindcssAnimate from "tailwindcss-animate";
+import autoprefixer from "autoprefixer";
 export default {
     darkMode: ["class"],
     content: [
@@ -56,6 +58,7 @@ export default {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
+  plugins: [autoprefixer]
 }
 
