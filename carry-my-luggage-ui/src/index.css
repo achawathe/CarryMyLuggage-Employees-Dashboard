@@ -32,7 +32,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  @apply bg-sky-200;
+  @apply bg-sky-100;
 }
 
 h1 {

@@ -32,8 +32,36 @@ const bookingSchema = new Schema({
 // Compile the model
 const Booking = mongoose.model('Booking', bookingSchema);
 
-// Routes
-app.post('/api/v1/booking', async (req, res) => {
+
+//Cart
+
+app.get('./src/assets/Cart.jsx', async (req, res) => {
+  res.send('Cart');
+});
+
+app.get('./src/assets/ScheduleCart.jsx', async (req, res) => {
+  res.send('ScheduleCart');
+});
+
+app.get('./src/assets/Home.jsx', async (req, res) => {
+  res.send('Home');
+});
+
+app.get('./src/assets/Login.jsx', async (req, res) => {
+  res.send('Login');
+});
+
+app.get('./src/assets/Signup.jsx', async (req, res) => {
+  res.send('Signup');
+} );
+
+app.get('./src/assets/Locations.jsx', async (req, res) => {
+  res.send('Locations');
+} );
+
+
+// Schedule Cart
+app.post('./src/assets/ScheduleCart', async (req, res) => {
   try {
     const booking = new Booking({
       cartNum: req.body.cartNum || 3,
@@ -52,7 +80,7 @@ app.post('/api/v1/booking', async (req, res) => {
   }
 });
 
-app.get('/api/v1/booking', async (req, res) => {
+app.get('./src/assets/ScheduleCart', async (req, res) => {
   try {
     const bookings = await Booking.find({ cartNum: req.query.cartNum });
     res.json(bookings);
@@ -63,7 +91,7 @@ app.get('/api/v1/booking', async (req, res) => {
 });
 
 // Update Booking
-app.put('/api/v1/booking', async (req, res) => {
+app.put('./src/assets/ScheduleCart', async (req, res) => {
   try {
     await Booking.updateOne(
       { cartNum: req.body.cartNum },
@@ -77,7 +105,7 @@ app.put('/api/v1/booking', async (req, res) => {
 });
 
 // Delete Booking
-app.delete('/api/v1/booking', async (req, res) => {
+app.delete('./src/assets/ScheduleCart', async (req, res) => {
   try {
     await Booking.deleteOne({ cartNum: req.body.cartNum });
     res.send('Booking deleted');
@@ -88,7 +116,7 @@ app.delete('/api/v1/booking', async (req, res) => {
 });
 
 // Get Luggage Cart Data
-app.get('/api/v1/cart', async (req, res) => {
+app.get('./src/assets/ScheduleCart', async (req, res) => {
   try {
     const carts = await mongoose.connection.db.collection('cart').find({}).toArray();
     res.json(carts);
@@ -97,3 +125,4 @@ app.get('/api/v1/cart', async (req, res) => {
     res.status(500).send('Error retrieving cart data');
   }
 });
+
