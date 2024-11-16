@@ -57,7 +57,7 @@ function ScheduleCart(){
 
                     <div style={{paddingTop:'8%'}}>
                     <Button style={{fontSize:'150%'}} variant="secondary"  className="bg-indigo-500" type='submit'>
-                        <a style={{color:"white"}} href='/Dashboard.jsx'>Confirm</a>
+                        <a style={{color:"white"}} href='/Dashboard'>Confirm</a>
                     </Button>
                     </div>
                 </form>

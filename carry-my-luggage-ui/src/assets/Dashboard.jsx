@@ -26,7 +26,7 @@ function Dashboard(){
                 Airport Name
             </div>
 
-            <div style={{position:"fixed", top:"9%", left:"17%"}} className="grid sm:grid-cols-2 md:grid-cols-3 gap-12 p-4">
+            <div style={{position:"fixed", top:"9%", left:"17%"}} className="grid gap-12 p-4 sm:grid-cols-2 md:grid-cols-3">
                 {luggageCarts.map((cart) =>
                     <div className='max-w-xs text-left'>
                         <Card className="bg-indigo-300 h-[160px] w-[360px]">
@@ -35,7 +35,7 @@ function Dashboard(){
                             <CardContent style={{paddingBottom:"2%", fontSize:"110%"}}>Status: {cart.status} {cart.location} {'('}{cart.TimeRem}{' Minutes)'}</CardContent>
                             <div style={{paddingLeft:'6%'}}>
                                 <Button style={{fontSize:'100%', paddingLeft:''}} variant="secondary"  className="bg-indigo-500" type='submit'>
-                                    <a style={{color:"white"}} href='/Cart.jsx'>Select Cart</a>
+                                    <a style={{color:"white"}} href='/Cart'>Select Cart</a>
                                 </Button>
                             </div>
                         </Card>

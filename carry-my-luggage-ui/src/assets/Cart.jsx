@@ -35,7 +35,7 @@ function Cart(){
                 </CardContent>
                 <div style={{paddingTop:'10%', paddingBottom:'5%'}}>
                     <Button style={{fontSize:'150%', color:"white"}} variant="secondary"  className="bg-indigo-500">
-                        <a style={{color:"white"}} href="/ScheduleCart.jsx">
+                        <a style={{color:"white"}} href="/ScheduleCart">
                             Schedule Cart {cart.cartNum}
                         </a>
                     </Button>

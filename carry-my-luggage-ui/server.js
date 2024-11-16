@@ -35,29 +35,37 @@ const Booking = mongoose.model('Booking', bookingSchema);
 
 //Cart
 
-app.get('./src/assets/Cart.jsx', async (req, res) => {
-  res.send('Cart');
+// Serve compiled JavaScript files from the build directory
+app.use('./src/assets', express.static(path.join(__dirname, 'build')));
+
+// Example route to serve compiled JavaScript
+app.get('/Cart', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'Cart.jsx'));
 });
 
-app.get('./src/assets/ScheduleCart.jsx', async (req, res) => {
-  res.send('ScheduleCart');
+app.get('/ScheduleCart', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'ScheduleCart.jsx'));
 });
 
-app.get('./src/assets/Home.jsx', async (req, res) => {
-  res.send('Home');
+app.get('/Home', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'Home.jsx'));
 });
 
-app.get('./src/assets/Login.jsx', async (req, res) => {
-  res.send('Login');
+app.get('/Login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'Login.jsx'));
 });
 
-app.get('./src/assets/Signup.jsx', async (req, res) => {
-  res.send('Signup');
-} );
+app.get('/Signup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'Signup.jsx'));
+});
 
-app.get('./src/assets/Locations.jsx', async (req, res) => {
-  res.send('Locations');
-} );
+app.get('/Locations', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'Locations.jsx'));
+});
+
+app.get('/Dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'Dashboard.jsx'));
+});
 
 
 // Schedule Cart

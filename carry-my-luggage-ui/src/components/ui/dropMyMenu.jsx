@@ -17,17 +17,17 @@ function DropMyMenu(){
           <DropdownMenuContent style={{fontSize:"125%" }}  className="bg-indigo-300">
               <DropdownMenuItem  className="bg-indigo-300">
                 <Button style={{fontSize:"120%" }} variant="secondary"  className="bg-indigo-500">
-                  <a style={{color:"white"}} href="/Locations.jsx">Locations</a>
+                  <a style={{color:"white"}} href="/Locations">Locations</a>
                 </Button>
               </DropdownMenuItem>
               <DropdownMenuItem  className="bg-indigo-300">
                 <Button style={{fontSize:"120%" }} variant="secondary"  className="bg-indigo-500">
-                  <a style={{color:"white"}} href="/Dashboard.jsx">Dashboard</a>
+                  <a style={{color:"white"}} href="/Dashboard">Dashboard</a>
                 </Button>
               </DropdownMenuItem>
               <DropdownMenuItem  className="bg-indigo-300">
                 <Button style={{fontSize:"120%" }} variant="secondary"  className="bg-indigo-500">
-                  <a style={{color:"white"}} href="/Home.jsx">Sign Out</a>
+                  <a style={{color:"white"}} href="/Home">Sign Out</a>
                 </Button>
               </DropdownMenuItem>
           </DropdownMenuContent>

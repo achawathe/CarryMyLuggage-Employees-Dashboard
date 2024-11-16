@@ -43,7 +43,7 @@ function Signup(){
 
                 <div style={{paddingTop:'8%'}}>
                 <Button style={{fontSize:'150%'}} variant="secondary"  className="bg-indigo-500" type='submit'>
-                    <a style={{color:"white"}} href='/Locations.jsx'>Sign Up</a>
+                    <a style={{color:"white"}} href='/Locations'>Sign Up</a>
                 </Button>
                 </div>
             </form>

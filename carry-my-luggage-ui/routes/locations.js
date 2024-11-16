@@ -6,7 +6,7 @@ const app = express();
 const router = express.Router();
 
 // add the router to the app
-app.use('/api/v1/locations', router);
+app.use('/api/v1/Locations', router);
 // define the routes
 
 app.get('Ottawa', (req, res) => {
