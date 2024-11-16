@@ -4,6 +4,7 @@ import Login from './assets/Login';
 import Signup from './assets/Signup';
 import Locations from './assets/Locations';
 import Cart from './assets/Cart';
+import Dashboard from './assets/Dashboard';
 import ScheduleCart from './assets/ScheduleCart';
 //import ConnectROS from './components/ui/ConnectROS'
 import './App.css';
@@ -36,6 +37,15 @@ export default function App() {
             <Dashboard />
           </>
         );
+      case '/ScheduleCart':
+        return (
+          <>
+            <DropMyMenu />
+            <ScheduleCart />
+          </>
+        );
+      case '/Home':
+        return <Home />;
       case '/Cart':
         return (
           <>
@@ -50,6 +60,7 @@ export default function App() {
             <Locations />
           </>
         );
+      
       default:
         return <div>404 - Page Not Found</div>;
     }
