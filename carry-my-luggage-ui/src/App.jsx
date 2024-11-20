@@ -6,6 +6,7 @@ import Locations from './assets/Locations';
 import Cart from './assets/Cart';
 import Dashboard from './assets/Dashboard';
 import ScheduleCart from './assets/ScheduleCart';
+import Axios from 'axios';
 //import ConnectROS from './components/ui/ConnectROS'
 import './App.css';
 
@@ -20,6 +21,12 @@ import DropMyMenu from './components/ui/dropMyMenu';
 
 export default function App() {
   // This function will determine which page to render based on the current URL
+  
+  const fetchapi = async () => {
+    const response = await Axios.get('/api/ScheduleCart');
+    console.log(response.data);
+  }
+  
   const renderPage = () => {
     const path = window.location.pathname;
 

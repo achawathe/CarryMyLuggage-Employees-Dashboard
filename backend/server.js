@@ -1,20 +1,32 @@
-import mongoose from 'mongoose';
 import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import { MongoClient } from 'mongodb';
+
+
+const env = dotenv.config();
+
+const PORT_1 = process.env.PORT_1 // port number
+const PORT_2 = process.env.PORT_2 // port number
+const MONGODB_URL = process.env.MONGODB_URL // mongodb url
 
 const app = express();
 app.use(express.json());
-app.use(express.static('public'));
 
-// Connect to the database
-mongoose.connect('mongodb://localhost:27017/booking', { useNewUrlParser: true })
-  .then(() => {
-    app.listen(3000, () => {
-      console.log('Server started');
-    });
-  })
-  .catch((error) => {
-    console.log('Error connecting to database', error);
+
+//we already have a database. We need to connect to it
+
+MongoClient.connect(MONGODB_URL, function(err, database) {
+  if (err) throw err;
+  database = database.db('carts');
+  const collection = database.collection('YOW');
+
+  collection.find({}).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
   });
+}
+);
 
 
 
@@ -29,47 +41,26 @@ const bookingSchema = new Schema({
   timeRem: Number,
 });
 
+
+
 // Compile the model
 const Booking = mongoose.model('Booking', bookingSchema);
 
-
-//Cart
-
-// Serve compiled JavaScript files from the build directory
-app.use('./src/assets', express.static(path.join(__dirname, 'build')));
-
-// Example route to serve compiled JavaScript
-app.get('/Cart', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'Cart.jsx'));
+//find all carts
+app.get('/api/carts', async (req, res) => {
+  try {
+      const database = database.db('carts');
+      const collection = database.collection('YOW')
+      const result = await collection.aggregate([]).toArray();
+      res.send(result);
+  } catch (error) {
+      console.error("Error during aggregation:", error);
+      res.status(500).send({ error: "Internal Server Error" });
+  }
 });
-
-app.get('/ScheduleCart', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'ScheduleCart.jsx'));
-});
-
-app.get('/Home', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'Home.jsx'));
-});
-
-app.get('/Login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'Login.jsx'));
-});
-
-app.get('/Signup', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'Signup.jsx'));
-});
-
-app.get('/Locations', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'Locations.jsx'));
-});
-
-app.get('/Dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'Dashboard.jsx'));
-});
-
 
 // Schedule Cart
-app.post('./src/assets/ScheduleCart', async (req, res) => {
+app.post('/api/ScheduleCart', async (req, res) => {
   try {
     const booking = new Booking({
       cartNum: req.body.cartNum || 3,
@@ -88,7 +79,7 @@ app.post('./src/assets/ScheduleCart', async (req, res) => {
   }
 });
 
-app.get('./src/assets/ScheduleCart', async (req, res) => {
+app.get('/api/ScheduleCart', async (req, res) => {
   try {
     const bookings = await Booking.find({ cartNum: req.query.cartNum });
     res.json(bookings);
@@ -99,7 +90,7 @@ app.get('./src/assets/ScheduleCart', async (req, res) => {
 });
 
 // Update Booking
-app.put('./src/assets/ScheduleCart', async (req, res) => {
+app.put('/api/ScheduleCart', async (req, res) => {
   try {
     await Booking.updateOne(
       { cartNum: req.body.cartNum },
@@ -113,7 +104,7 @@ app.put('./src/assets/ScheduleCart', async (req, res) => {
 });
 
 // Delete Booking
-app.delete('./src/assets/ScheduleCart', async (req, res) => {
+app.delete('/api/ScheduleCart', async (req, res) => {
   try {
     await Booking.deleteOne({ cartNum: req.body.cartNum });
     res.send('Booking deleted');
@@ -124,7 +115,7 @@ app.delete('./src/assets/ScheduleCart', async (req, res) => {
 });
 
 // Get Luggage Cart Data
-app.get('./src/assets/ScheduleCart', async (req, res) => {
+app.get('/api/ScheduleCart', async (req, res) => {
   try {
     const carts = await mongoose.connection.db.collection('cart').find({}).toArray();
     res.json(carts);
@@ -134,3 +125,9 @@ app.get('./src/assets/ScheduleCart', async (req, res) => {
   }
 });
 
+//set up the server
+
+app.listen(PORT_2, () => {
+  console.log('Server started');
+}
+);

@@ -7,10 +7,16 @@ import {Card,
     CardTitle,} from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import DropMyMenu from '../components/ui/dropMyMenu';
+import axios from 'axios';
 
 
 function Dashboard(){
-
+        
+    // const luggageCarts = [axios.get('/api/carts').then((response) => {
+    //     console.log(response.data);
+    //     return response.data
+    // })];
+    
     const luggageCarts = [
         {cartNum:1, battery:50, status:"Moving To", location:"Gate 1", TimeRem:30},
         {cartNum:2, battery:90, status:"Idle", location:"Gate 3", TimeRem:0},
