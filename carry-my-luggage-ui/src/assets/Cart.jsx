@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import { Button } from "../components/ui/button";
 import DropMyMenu from '../components/ui/dropMyMenu';
 import {Card,
@@ -35,9 +36,9 @@ function Cart(){
                 </CardContent>
                 <div style={{paddingTop:'10%', paddingBottom:'5%'}}>
                     <Button style={{fontSize:'150%', color:"white"}} variant="secondary"  className="bg-indigo-500">
-                        <a style={{color:"white"}} href="/ScheduleCart">
+                        <Link style={{color:"white"}} to="/ScheduleCart">
                             Schedule Cart {cart.cartNum}
-                        </a>
+                        </Link>
                     </Button>
                 </div>
             </Card>

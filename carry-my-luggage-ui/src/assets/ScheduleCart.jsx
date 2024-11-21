@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import { Button } from "../components/ui/button";
 import DropMyMenu from '../components/ui/dropMyMenu';
 import{ useState } from 'react';
@@ -57,7 +58,7 @@ function ScheduleCart(){
 
                     <div style={{paddingTop:'8%'}}>
                     <Button style={{fontSize:'150%'}} variant="secondary"  className="bg-indigo-500" type='submit'>
-                        <a style={{color:"white"}} href='/Dashboard'>Confirm</a>
+                        <Link style={{color:"white"}} to='/Dashboard'>Confirm</Link>
                     </Button>
                     </div>
                 </form>

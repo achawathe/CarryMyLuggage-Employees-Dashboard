@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import{ useState } from 'react';
 import { Button } from "../components/ui/button";
 
@@ -35,7 +36,7 @@ function Login(){
 
                 <div style={{paddingTop:'8%'}}>
                 <Button style={{fontSize:'150%'}} variant="secondary"  className="bg-indigo-500" type='submit'>
-                    <a style={{color:"white"}} href='/Locations'>Login</a>
+                    <Link style={{color:"white"}} to='/Locations'>Login</Link>
                 </Button>
                 </div>
             </form>

@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from './assets/Home';
 import Login from './assets/Login';
 import Signup from './assets/Signup';
@@ -15,61 +16,26 @@ import './App.css';
 //   )
 // }
 
-
-import DropMyMenu from './components/ui/dropMyMenu';
-
 export default function App() {
-  // This function will determine which page to render based on the current URL
-  const renderPage = () => {
-    const path = window.location.pathname;
-
-    switch (path) {
-      case '/':
-        return <Home />;
-      case '/Login':
-        return <Login />;
-      case '/Signup':
-        return <Signup />;
-      case '/Dashboard':
-        return (
-          <>
-            <DropMyMenu />
-            <Dashboard />
-          </>
-        );
-      case '/ScheduleCart':
-        return (
-          <>
-            <DropMyMenu />
-            <ScheduleCart />
-          </>
-        );
-      case '/Home':
-        return <Home />;
-      case '/Cart':
-        return (
-          <>
-            <DropMyMenu />
-            <Cart />
-          </>
-        );
-      case '/Locations':
-        return (
-          <>
-            <DropMyMenu />
-            <Locations />
-          </>
-        );
-      
-      default:
-        return <div>404 - Page Not Found</div>;
-    }
-  };
 
   return (
-    <div className="app">
-      {renderPage()}
+    <BrowserRouter>
+
+    <div>
+
+      <Routes>
+        <Route path="/" element = {<Home/>} />
+        <Route path="/Login" element = {<Login/>} />
+        <Route path="/Signup" element = {<Signup/>} />
+        <Route path="/Locations" element = {<Locations/>} />
+        <Route path="/Dashboard" element = {<Dashboard/>} />
+        <Route path="/Cart" element = {<Cart/>}/>
+        <Route path="/ScheduleCart" element = {<ScheduleCart/>} />
+      </Routes>
+
     </div>
+
+  </BrowserRouter> 
   );
 }
 
