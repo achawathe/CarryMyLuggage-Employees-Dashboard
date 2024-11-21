@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { MongoClient } from 'mongodb';
-
+import cors from 'cors';
 
 const env = dotenv.config();
 
@@ -13,62 +13,61 @@ const MONGODB_URL = process.env.MONGODB_URL // mongodb url
 const app = express();
 app.use(express.json());
 
-
+app.use(cors());
 //we already have a database. We need to connect to it
 
-MongoClient.connect(MONGODB_URL, function(err, database) {
-  if (err) throw err;
-  database = database.db('carts');
-  const collection = database.collection('YOW');
-
-  collection.find({}).toArray(function(err, result) {
-    if (err) throw err;
-    console.log(result);
-  });
-}
-);
+mongoose.connect(MONGODB_URL)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.error("MongoDB connection error:", err));
 
 
 
 // Define a schema
 const Schema = mongoose.Schema;
-const bookingSchema = new Schema({
-  cartNum: Number,
-  airport: String, // Changed to String
+const cartSchema = new Schema({
+  cartNum: String,
+  airport: String,
   battery: Number,
   status: String,
   location: String,
-  timeRem: Number,
+  timeRem: Number, 
+  cartId: String
 });
 
 
 
+
 // Compile the model
-const Booking = mongoose.model('Booking', bookingSchema);
+const Cart = mongoose.model('carts', cartSchema);
+
+
+
 
 //find all carts
 app.get('/api/carts', async (req, res) => {
   try {
-      const database = database.db('carts');
-      const collection = database.collection('YOW')
-      const result = await collection.aggregate([]).toArray();
-      res.send(result);
+    const allCarts = await Cart.find({});
+    res.send(allCarts);
+    console.log('Carts retrieved');
   } catch (error) {
       console.error("Error during aggregation:", error);
       res.status(500).send({ error: "Internal Server Error" });
   }
 });
 
+
+
 // Schedule Cart
 app.post('/api/ScheduleCart', async (req, res) => {
   try {
-    const booking = new Booking({
+    const booking = new Cart({
       cartNum: req.body.cartNum || 3,
       airport: req.body.airport || 'YOW',
-      battery: req.body.battery || 0,
+      battery: req.body.battery || 100,
       status: req.body.status || 'Available',
       location: req.body.location || 'Terminal 1',
       timeRem: req.body.timeRem || 10,
+      cartId: req.body.cartId || 'YOW3'
     });
 
     await booking.save();
@@ -81,8 +80,8 @@ app.post('/api/ScheduleCart', async (req, res) => {
 
 app.get('/api/ScheduleCart', async (req, res) => {
   try {
-    const bookings = await Booking.find({ cartNum: req.query.cartNum });
-    res.json(bookings);
+    const cart = await Cart.find({ cartNum: req.query.cartNum });
+    res.json(cart);
     console.log('Booking retrieved');
   } catch (error) {
     res.status(500).send('Error retrieving booking');
@@ -92,7 +91,7 @@ app.get('/api/ScheduleCart', async (req, res) => {
 // Update Booking
 app.put('/api/ScheduleCart', async (req, res) => {
   try {
-    await Booking.updateOne(
+    await Cart.updateOne(
       { cartNum: req.body.cartNum },
       { $set: { status: 'Unavailable', timeRem: 0 } }
     );
@@ -106,7 +105,7 @@ app.put('/api/ScheduleCart', async (req, res) => {
 // Delete Booking
 app.delete('/api/ScheduleCart', async (req, res) => {
   try {
-    await Booking.deleteOne({ cartNum: req.body.cartNum });
+    await Cart.deleteOne({ cartNum: req.body.cartNum });
     res.send('Booking deleted');
     console.log('Booking deleted');
   } catch (error) {
@@ -128,6 +127,6 @@ app.get('/api/ScheduleCart', async (req, res) => {
 //set up the server
 
 app.listen(PORT_2, () => {
-  console.log('Server started');
+  console.log('Server started on http://localhost:' + PORT_2);
 }
 );
