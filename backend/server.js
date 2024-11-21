@@ -36,10 +36,25 @@ const cartSchema = new Schema({
 
 
 
+const airportSchema = new Schema({
+  location: String,
+  airportCode: String,
+  numberOfCarts: Number
+});
+
+//    const airports = [
+//   {location:"Ottawa, ON, Canada", airportCode:"YOW", numberOfCarts:10},
+//   {location:"Toronto, ON, Canada", airportCode:"YYZ", numberOfCarts:6},
+//   {location:"Montreal, QC, Canada", airportCode:"YUL", numberOfCarts:4},
+//   {location:"Vancouver, BC, Canada", airportCode:"YVR", numberOfCarts:4},
+//   {location:"Edmonton, AB, Canada", airportCode:"YEG", numberOfCarts:5},
+//   {location:"Halifax, NS, Canada", airportCode:"YHZ", numberOfCarts:6}
+// ];
+
 
 // Compile the model
 const Cart = mongoose.model('carts', cartSchema);
-
+const Airport = mongoose.model('airports', airportSchema);
 
 
 
@@ -55,7 +70,16 @@ app.get('/api/carts', async (req, res) => {
   }
 });
 
-
+app.get('/api/airports', async (req, res) => {
+  try {
+    const allAirports = await Airport.find({});
+    res.send(allAirports);
+    console.log('Airports retrieved');
+  } catch (error) {
+      console.error("Error during aggregation:", error);
+      res.status(500).send({ error: "Internal Server Error" });
+  }
+});
 
 // Schedule Cart
 app.post('/api/ScheduleCart', async (req, res) => {
