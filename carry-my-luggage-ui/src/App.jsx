@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from './assets/Home';
 import Login from './assets/Login';
 import Signup from './assets/Signup';
@@ -6,78 +7,28 @@ import Locations from './assets/Locations';
 import Cart from './assets/Cart';
 import Dashboard from './assets/Dashboard';
 import ScheduleCart from './assets/ScheduleCart';
-import Axios from 'axios';
 //import ConnectROS from './components/ui/ConnectROS'
 import './App.css';
 
-// function App() {
-//   return (
-//       <Home/>
-//   )
-// }
-
-
-import DropMyMenu from './components/ui/dropMyMenu';
-
 export default function App() {
-  // This function will determine which page to render based on the current URL
-  
-  const fetchapi = async () => {
-    const response = await Axios.get('/api/ScheduleCart');
-    console.log(response.data);
-  }
-  
-  const renderPage = () => {
-    const path = window.location.pathname;
-
-    switch (path) {
-      case '/':
-        return <Home />;
-      case '/Login':
-        return <Login />;
-      case '/Signup':
-        return <Signup />;
-      case '/Dashboard':
-        return (
-          <>
-            <DropMyMenu />
-            <Dashboard />
-          </>
-        );
-      case '/ScheduleCart':
-        return (
-          <>
-            <DropMyMenu />
-            <ScheduleCart />
-          </>
-        );
-      case '/Home':
-        return <Home />;
-      case '/Cart':
-        return (
-          <>
-            <DropMyMenu />
-            <Cart />
-          </>
-        );
-      case '/Locations':
-        return (
-          <>
-            <DropMyMenu />
-            <Locations />
-          </>
-        );
-      
-      default:
-        return <div>404 - Page Not Found</div>;
-    }
-  };
 
   return (
-    <div className="app">
-      {renderPage()}
+    <BrowserRouter>
+
+    <div>
+
+      <Routes>
+        <Route path="/" element = {<Home/>} />
+        <Route path="/Login" element = {<Login/>} />
+        <Route path="/Signup" element = {<Signup/>} />
+        <Route path="/Locations" element = {<Locations/>} />
+        <Route path="/Dashboard" element = {<Dashboard/>} />
+        <Route path="/Cart" element = {<Cart/>}/>
+        <Route path="/ScheduleCart" element = {<ScheduleCart/>} />
+      </Routes>
+
     </div>
+
+  </BrowserRouter> 
   );
 }
-
-// export default App

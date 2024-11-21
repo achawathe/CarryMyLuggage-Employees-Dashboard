@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {Card,
     CardContent,
     CardDescription,
@@ -16,7 +17,8 @@ function Dashboard() {
     const [luggageCarts, setLuggageCarts] = useState([]);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
+
+      useEffect(() => {
         axios
             .get('http://localhost:4000/api/carts')
             .then((response) => {
@@ -35,6 +37,7 @@ function Dashboard() {
             <div style={{ position: "fixed", top: "2%", left: "45%", fontSize: '250%' }}>
                 Airport Name
             </div>
+
             <div
                 style={{
                     position: "fixed",
@@ -67,7 +70,7 @@ function Dashboard() {
                                         className="bg-indigo-500"
                                         type="submit"
                                     >
-                                        <a style={{ color: "white" }} href="/Cart">Select Cart</a>
+                                        <Link style={{color:"white"}} to='/Cart'>Select Cart</Link>
                                     </Button>
                                 </div>
                             </Card>

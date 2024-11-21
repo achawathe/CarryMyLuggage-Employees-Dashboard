@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import { Button } from "../components/ui/button";
 
 
@@ -14,12 +15,12 @@ function Home(){
             <div className="grid grid-cols-1" style={{paddingTop:'15%'}}>
                 <div style={{paddingTop:'5%'}}>
                 <Button style={{fontSize:'150%'}} variant="secondary"  className="bg-indigo-500">
-                    <a style={{color:"white"}} href="/Login">Login</a>
+                    <Link style={{color:"white"}} to="/Login">Login</Link>
                 </Button>
                 </div>
                 <div style={{paddingTop:'5%'}}>
                 <Button style={{fontSize:'150%'}} variant="secondary"  className="bg-indigo-500">
-                    <a style={{color:"white"}} href="/Signup">Sign Up</a>
+                    <Link style={{color:"white"}} to="/Signup">Sign Up</Link>
                 </Button>
                 </div>
             </div>
