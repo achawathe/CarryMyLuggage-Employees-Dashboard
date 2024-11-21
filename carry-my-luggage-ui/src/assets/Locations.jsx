@@ -8,6 +8,7 @@ import {Card,
     CardTitle,} from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import DropMyMenu from '../components/ui/dropMyMenu';
+import e from 'cors';
 
 function Locations(){
 
@@ -53,3 +54,5 @@ function Locations(){
         </div>
     );
 }
+
+export default Locations;
