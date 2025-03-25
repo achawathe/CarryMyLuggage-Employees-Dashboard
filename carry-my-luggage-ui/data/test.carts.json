@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "673f93aab39478feaca1c383"
+  },
+  "cartNum": "1",
+  "battery": 90,
+  "status": "Restaurant",
+  "location": "Gate 4",
+  "timeRem": 0,
+  "cartId": "YOW1",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "673f93aab39478feaca1c384"
+  },
+  "cartNum": "2",
+  "battery": 90,
+  "status": "Idle",
+  "location": "Gate 3",
+  "timeRem": 0,
+  "cartId": "YOW2",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "673f93aab39478feaca1c385"
+  },
+  "cartNum": "3",
+  "battery": 75,
+  "status": "Charging",
+  "location": "Charging",
+  "timeRem": 15,
+  "cartId": "YOW3",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "673f93aab39478feaca1c386"
+  },
+  "cartNum": "4",
+  "battery": 55,
+  "status": "Moving To",
+  "location": "Gate 5",
+  "timeRem": 10,
+  "cartId": "YOW4",
+  "__v": 0
+}]
